@@ -159,6 +159,163 @@
         .refresh-btn:hover {
             transform: scale(1.1);
         }
+
+        /* Settings Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideIn 0.3s;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .modal-header h2 {
+            color: #667eea;
+        }
+
+        .close-btn {
+            font-size: 28px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover {
+            color: #667eea;
+        }
+
+        .settings-section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9ff;
+            border-radius: 10px;
+        }
+
+        .settings-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group small {
+            display: block;
+            margin-top: 5px;
+            color: #666;
+            font-size: 12px;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-indicator.connected {
+            background: #28a745;
+        }
+
+        .status-indicator.disconnected {
+            background: #dc3545;
+        }
+
+        .save-btn {
+            background: linear-gradient(45deg, #28a745 0%, #20c997 100%);
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+        }
+
+        .oauth-btn {
+            background: linear-gradient(45deg, #dc3545 0%, #c82333 100%);
+        }
+
+        .auth-steps {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            border-left: 4px solid #ffc107;
+        }
+
+        .auth-steps ol {
+            margin-left: 20px;
+        }
+
+        .auth-steps li {
+            margin-bottom: 8px;
+        }
     </style>
 </head>
 <body>
@@ -191,6 +348,7 @@
                 <button class="btn" onclick="generateContent()">🎬 Generate Content Now</button>
                 <button class="btn" onclick="viewAnalytics()">📊 View Analytics</button>
                 <button class="btn" onclick="viewSchedule()">📅 View Schedule</button>
+                <button class="btn" onclick="openSettingsModal()">⚙️ Settings</button>
             </div>
         </div>
         
@@ -248,6 +406,72 @@
     <button class="refresh-btn" onclick="refreshDashboard()" title="Refresh Dashboard">
         🔄
     </button>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>⚙️ API Configuration</h2>
+                <span class="close-btn" onclick="closeSettingsModal()">&times;</span>
+            </div>
+
+            <div class="settings-section">
+                <h3><span class="status-indicator" id="youtubeStatusIndicator"></span>YouTube API</h3>
+                <div class="auth-steps" id="youtubeAuthSteps">
+                    <ol>
+                        <li>Create a project in <a href="https://console.cloud.google.com/" target="_blank">Google Cloud Console</a></li>
+                        <li>Enable YouTube Data API v3</li>
+                        <li>Create OAuth 2.0 credentials</li>
+                        <li>Add redirect URI: <code>http://localhost:8080/oauth2callback</code></li>
+                        <li>Copy Client ID and Client Secret below</li>
+                    </ol>
+                </div>
+                <div class="form-group">
+                    <label for="youtubeClientId">Client ID:</label>
+                    <input type="text" id="youtubeClientId" placeholder="Enter your YouTube API Client ID">
+                </div>
+                <div class="form-group">
+                    <label for="youtubeClientSecret">Client Secret:</label>
+                    <input type="password" id="youtubeClientSecret" placeholder="Enter your YouTube API Client Secret">
+                </div>
+                <div class="form-group">
+                    <label for="youtubeRedirectUri">Redirect URI:</label>
+                    <input type="text" id="youtubeRedirectUri" value="http://localhost:8080/oauth2callback">
+                </div>
+                <button class="btn oauth-btn" onclick="saveYouTubeCredentials()">Save YouTube Credentials</button>
+                <button class="btn" id="youtubeAuthBtn" onclick="startYouTubeAuth()" style="display:none;">🔗 Authenticate with YouTube</button>
+            </div>
+
+            <div class="settings-section">
+                <h3><span class="status-indicator" id="openaiStatusIndicator"></span>OpenAI API</h3>
+                <div class="form-group">
+                    <label for="openaiApiKey">API Key:</label>
+                    <input type="password" id="openaiApiKey" placeholder="sk-...">
+                    <small>Get your API key from <a href="https://platform.openai.com/api-keys" target="_blank">OpenAI</a></small>
+                </div>
+                <div class="form-group">
+                    <label for="openaiModel">Model:</label>
+                    <select id="openaiModel">
+                        <option value="gpt-4-turbo-preview">GPT-4 Turbo (Recommended)</option>
+                        <option value="gpt-4">GPT-4</option>
+                        <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                        <option value="gpt-3.5-turbo-16k">GPT-3.5 Turbo 16K</option>
+                    </select>
+                </div>
+                <button class="btn save-btn" onclick="saveOpenAICredentials()">Save OpenAI Credentials</button>
+            </div>
+
+            <div class="settings-section">
+                <h3><span class="status-indicator" id="geminiStatusIndicator"></span>Google Gemini API (Optional)</h3>
+                <div class="form-group">
+                    <label for="geminiApiKey">API Key:</label>
+                    <input type="password" id="geminiApiKey" placeholder="Enter your Gemini API Key">
+                    <small>Get your API key from <a href="https://makersuite.google.com/app/apikey" target="_blank">Google AI Studio</a></small>
+                </div>
+                <button class="btn save-btn" onclick="saveGeminiCredentials()">Save Gemini Credentials</button>
+            </div>
+        </div>
+    </div>
     
     <script>
         // Dashboard functionality
@@ -399,6 +623,195 @@
         
         function refreshDashboard() {
             loadDashboard();
+        }
+
+        // Settings Modal Functions
+        function openSettingsModal() {
+            document.getElementById('settingsModal').classList.add('show');
+            loadCredentialsStatus();
+        }
+
+        function closeSettingsModal() {
+            document.getElementById('settingsModal').classList.remove('show');
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('settingsModal');
+            if (event.target === modal) {
+                closeSettingsModal();
+            }
+        }
+
+        async function loadCredentialsStatus() {
+            try {
+                const response = await fetch('/api/credentials/status');
+                const status = await response.json();
+
+                // Update YouTube status
+                const youtubeIndicator = document.getElementById('youtubeStatusIndicator');
+                if (status.youtube && status.youtubeAuthenticated) {
+                    youtubeIndicator.className = 'status-indicator connected';
+                    document.getElementById('youtubeAuthBtn').style.display = 'inline-block';
+                } else if (status.youtube) {
+                    youtubeIndicator.className = 'status-indicator disconnected';
+                    document.getElementById('youtubeAuthBtn').style.display = 'inline-block';
+                } else {
+                    youtubeIndicator.className = 'status-indicator disconnected';
+                    document.getElementById('youtubeAuthBtn').style.display = 'none';
+                }
+
+                // Update OpenAI status
+                const openaiIndicator = document.getElementById('openaiStatusIndicator');
+                openaiIndicator.className = status.openai ? 'status-indicator connected' : 'status-indicator disconnected';
+
+                // Update Gemini status
+                const geminiIndicator = document.getElementById('geminiStatusIndicator');
+                geminiIndicator.className = status.gemini ? 'status-indicator connected' : 'status-indicator disconnected';
+
+            } catch (error) {
+                console.error('Failed to load credentials status:', error);
+            }
+        }
+
+        async function saveYouTubeCredentials() {
+            const clientId = document.getElementById('youtubeClientId').value.trim();
+            const clientSecret = document.getElementById('youtubeClientSecret').value.trim();
+            const redirectUri = document.getElementById('youtubeRedirectUri').value.trim();
+
+            if (!clientId || !clientSecret) {
+                alert('Please enter both Client ID and Client Secret');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/credentials/save', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        service: 'youtube',
+                        config: { clientId, clientSecret, redirectUri }
+                    })
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    alert('YouTube credentials saved! Now click "Authenticate with YouTube" to complete the setup.');
+                    document.getElementById('youtubeAuthBtn').style.display = 'inline-block';
+                    loadCredentialsStatus();
+                } else {
+                    alert('Failed to save credentials: ' + result.error);
+                }
+            } catch (error) {
+                alert('Failed to save YouTube credentials: ' + error.message);
+            }
+        }
+
+        async function startYouTubeAuth() {
+            try {
+                const response = await fetch('/api/credentials/youtube/auth-url');
+                const data = await response.json();
+
+                if (data.authUrl) {
+                    const authWindow = window.open(data.authUrl, '_blank');
+                    
+                    // Show prompt for authorization code
+                    setTimeout(() => {
+                        const code = prompt('After authorizing in the new window, paste the authorization code here:');
+                        if (code) {
+                            exchangeYouTubeCode(code);
+                        }
+                    }, 2000);
+                }
+            } catch (error) {
+                alert('Failed to start YouTube authentication: ' + error.message);
+            }
+        }
+
+        async function exchangeYouTubeCode(code) {
+            try {
+                const response = await fetch('/api/credentials/youtube/exchange', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ code })
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    alert('YouTube authentication completed successfully!');
+                    loadCredentialsStatus();
+                } else {
+                    alert('Authentication failed: ' + result.error);
+                }
+            } catch (error) {
+                alert('Failed to complete YouTube authentication: ' + error.message);
+            }
+        }
+
+        async function saveOpenAICredentials() {
+            const apiKey = document.getElementById('openaiApiKey').value.trim();
+            const model = document.getElementById('openaiModel').value;
+
+            if (!apiKey) {
+                alert('Please enter your OpenAI API key');
+                return;
+            }
+
+            if (!apiKey.startsWith('sk-')) {
+                alert('Invalid API key format. OpenAI keys start with "sk-"');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/credentials/save', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        service: 'openai',
+                        config: { apiKey, model }
+                    })
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    alert('OpenAI credentials saved successfully!');
+                    loadCredentialsStatus();
+                } else {
+                    alert('Failed to save credentials: ' + result.error);
+                }
+            } catch (error) {
+                alert('Failed to save OpenAI credentials: ' + error.message);
+            }
+        }
+
+        async function saveGeminiCredentials() {
+            const apiKey = document.getElementById('geminiApiKey').value.trim();
+
+            if (!apiKey) {
+                alert('Please enter your Gemini API key');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/credentials/save', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        service: 'gemini',
+                        config: { apiKey }
+                    })
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    alert('Gemini credentials saved successfully!');
+                    loadCredentialsStatus();
+                } else {
+                    alert('Failed to save credentials: ' + result.error);
+                }
+            } catch (error) {
+                alert('Failed to save Gemini credentials: ' + error.message);
+            }
         }
         
         // Auto-refresh every 30 seconds

@@ -2,3 +2,100 @@
 {"component":"Database","level":"info","message":"Initializing database...","timestamp":"2026-06-16T00:11:22.973Z"}
 {"component":"Database","level":"info","message":"Database initialized successfully","timestamp":"2026-06-16T00:11:23.066Z"}
 {"component":"MainAgent","level":"info","message":"Loading credentials...","timestamp":"2026-06-16T00:11:23.067Z"}
+{"component":"MainAgent","level":"info","message":"Initializing database...","timestamp":"2026-06-16T00:22:05.203Z"}
+{"component":"Database","level":"info","message":"Initializing database...","timestamp":"2026-06-16T00:22:05.249Z"}
+{"component":"Database","level":"info","message":"Database initialized successfully","timestamp":"2026-06-16T00:22:05.306Z"}
+{"component":"MainAgent","level":"info","message":"Loading credentials...","timestamp":"2026-06-16T00:22:05.307Z"}
+{"component":"MainAgent","level":"info","message":"Initializing agents...","timestamp":"2026-06-16T00:22:05.324Z"}
+{"component":"ContentStrategy","level":"info","message":"Initializing Content Strategy Agent...","timestamp":"2026-06-16T00:22:05.367Z"}
+{"component":"AIVideoGenerator","level":"warn","message":"OpenAI API key not found - AI features will be simulated","timestamp":"2026-06-16T00:22:05.364Z"}
+{"component":"MainAgent","level":"info","message":"✓ strategy agent initialized","timestamp":"2026-06-16T00:22:05.384Z"}
+{"component":"ScriptWriter","level":"info","message":"Initializing Script Writer Agent...","timestamp":"2026-06-16T00:22:05.385Z"}
+{"component":"ThumbnailDesigner","level":"info","message":"Initializing Thumbnail Designer Agent...","timestamp":"2026-06-16T00:22:05.385Z"}
+{"component":"ContentStrategy","error":"YouTube credentials not configured","level":"error","message":"Error analyzing trends:","stack":"Error: YouTube credentials not configured\n    at CredentialManager.getYouTubeAuth (/workspace/utils/credential-manager.js:139:13)\n    at CredentialManager.getYouTubeClient (/workspace/utils/credential-manager.js:153:23)\n    at ContentStrategyAgent.fetchYouTubeTrends (/workspace/agents/content-strategy-agent.js:50:38)\n    at ContentStrategyAgent.analyzeTrends (/workspace/agents/content-strategy-agent.js:34:33)\n    at ContentStrategyAgent.initialize (/workspace/agents/content-strategy-agent.js:17:16)\n    at async YouTubeAutomationAgent.initializeAgents (/workspace/index.js:83:7)\n    at async YouTubeAutomationAgent.initialize (/workspace/index.js:50:7)\n    at async YouTubeAutomationAgent.start (/workspace/index.js:328:25)","timestamp":"2026-06-16T00:22:05.383Z"}
+{"component":"AIVideoGenerator","level":"warn","message":"Replicate API key not found - advanced video generation unavailable","timestamp":"2026-06-16T00:22:05.365Z"}
+{"component":"MainAgent","level":"info","message":"✓ scriptWriter agent initialized","timestamp":"2026-06-16T00:22:05.385Z"}
+{"component":"MainAgent","level":"info","message":"✓ thumbnailDesigner agent initialized","timestamp":"2026-06-16T00:22:05.386Z"}
+{"component":"SEOOptimizer","level":"info","message":"Initializing SEO Optimizer Agent...","timestamp":"2026-06-16T00:22:05.387Z"}
+{"component":"MainAgent","level":"info","message":"✓ seoOptimizer agent initialized","timestamp":"2026-06-16T00:22:05.387Z"}
+{"component":"ProductionManagement","level":"info","message":"Initializing Production Management Agent...","timestamp":"2026-06-16T00:22:05.388Z"}
+{"component":"MainAgent","level":"info","message":"✓ production agent initialized","timestamp":"2026-06-16T00:22:05.389Z"}
+{"component":"PublishingScheduling","level":"info","message":"Initializing Publishing & Scheduling Agent...","timestamp":"2026-06-16T00:22:05.403Z"}
+{"component":"MainAgent","level":"info","message":"Initializing database...","timestamp":"2026-06-16T00:22:22.209Z"}
+{"component":"Database","level":"info","message":"Initializing database...","timestamp":"2026-06-16T00:22:22.306Z"}
+{"component":"Database","level":"info","message":"Database initialized successfully","timestamp":"2026-06-16T00:22:22.370Z"}
+{"component":"MainAgent","level":"info","message":"Loading credentials...","timestamp":"2026-06-16T00:22:22.370Z"}
+{"component":"MainAgent","level":"info","message":"Initializing agents...","timestamp":"2026-06-16T00:22:22.389Z"}
+{"component":"ContentStrategy","level":"info","message":"Initializing Content Strategy Agent...","timestamp":"2026-06-16T00:22:22.404Z"}
+{"component":"AIVideoGenerator","level":"warn","message":"OpenAI API key not found - AI features will be simulated","timestamp":"2026-06-16T00:22:22.394Z"}
+{"component":"MainAgent","level":"info","message":"✓ strategy agent initialized","timestamp":"2026-06-16T00:22:22.410Z"}
+{"component":"ScriptWriter","level":"info","message":"Initializing Script Writer Agent...","timestamp":"2026-06-16T00:22:22.410Z"}
+{"component":"ThumbnailDesigner","level":"info","message":"Initializing Thumbnail Designer Agent...","timestamp":"2026-06-16T00:22:22.410Z"}
+{"component":"ContentStrategy","error":"YouTube credentials not configured","level":"error","message":"Error analyzing trends:","stack":"Error: YouTube credentials not configured\n    at CredentialManager.getYouTubeAuth (/workspace/utils/credential-manager.js:139:13)\n    at CredentialManager.getYouTubeClient (/workspace/utils/credential-manager.js:153:23)\n    at ContentStrategyAgent.fetchYouTubeTrends (/workspace/agents/content-strategy-agent.js:50:38)\n    at ContentStrategyAgent.analyzeTrends (/workspace/agents/content-strategy-agent.js:34:33)\n    at ContentStrategyAgent.initialize (/workspace/agents/content-strategy-agent.js:17:16)\n    at async YouTubeAutomationAgent.initializeAgents (/workspace/index.js:83:7)\n    at async YouTubeAutomationAgent.initialize (/workspace/index.js:50:7)\n    at async YouTubeAutomationAgent.start (/workspace/index.js:328:25)","timestamp":"2026-06-16T00:22:22.409Z"}
+{"component":"AIVideoGenerator","level":"warn","message":"Replicate API key not found - advanced video generation unavailable","timestamp":"2026-06-16T00:22:22.394Z"}
+{"component":"MainAgent","level":"info","message":"✓ scriptWriter agent initialized","timestamp":"2026-06-16T00:22:22.410Z"}
+{"component":"MainAgent","level":"info","message":"✓ thumbnailDesigner agent initialized","timestamp":"2026-06-16T00:22:22.420Z"}
+{"component":"SEOOptimizer","level":"info","message":"Initializing SEO Optimizer Agent...","timestamp":"2026-06-16T00:22:22.420Z"}
+{"component":"MainAgent","level":"info","message":"✓ seoOptimizer agent initialized","timestamp":"2026-06-16T00:22:22.427Z"}
+{"component":"ProductionManagement","level":"info","message":"Initializing Production Management Agent...","timestamp":"2026-06-16T00:22:22.428Z"}
+{"component":"MainAgent","level":"info","message":"✓ production agent initialized","timestamp":"2026-06-16T00:22:22.429Z"}
+{"component":"PublishingScheduling","level":"info","message":"Initializing Publishing & Scheduling Agent...","timestamp":"2026-06-16T00:22:22.429Z"}
+{"component":"MainAgent","level":"info","message":"Initializing database...","timestamp":"2026-06-16T00:22:40.210Z"}
+{"component":"Database","level":"info","message":"Initializing database...","timestamp":"2026-06-16T00:22:40.264Z"}
+{"component":"Database","level":"info","message":"Database initialized successfully","timestamp":"2026-06-16T00:22:40.305Z"}
+{"component":"MainAgent","level":"info","message":"Loading credentials...","timestamp":"2026-06-16T00:22:40.305Z"}
+{"component":"MainAgent","level":"info","message":"Initializing agents...","timestamp":"2026-06-16T00:22:40.309Z"}
+{"component":"ContentStrategy","level":"info","message":"Initializing Content Strategy Agent...","timestamp":"2026-06-16T00:22:40.326Z"}
+{"component":"AIVideoGenerator","level":"warn","message":"OpenAI API key not found - AI features will be simulated","timestamp":"2026-06-16T00:22:40.324Z"}
+{"component":"MainAgent","level":"info","message":"✓ strategy agent initialized","timestamp":"2026-06-16T00:22:40.345Z"}
+{"component":"ScriptWriter","level":"info","message":"Initializing Script Writer Agent...","timestamp":"2026-06-16T00:22:40.346Z"}
+{"component":"ThumbnailDesigner","level":"info","message":"Initializing Thumbnail Designer Agent...","timestamp":"2026-06-16T00:22:40.346Z"}
+{"component":"ContentStrategy","error":"YouTube credentials not configured","level":"error","message":"Error analyzing trends:","stack":"Error: YouTube credentials not configured\n    at CredentialManager.getYouTubeAuth (/workspace/utils/credential-manager.js:139:13)\n    at CredentialManager.getYouTubeClient (/workspace/utils/credential-manager.js:153:23)\n    at ContentStrategyAgent.fetchYouTubeTrends (/workspace/agents/content-strategy-agent.js:50:38)\n    at ContentStrategyAgent.analyzeTrends (/workspace/agents/content-strategy-agent.js:34:33)\n    at ContentStrategyAgent.initialize (/workspace/agents/content-strategy-agent.js:17:16)\n    at async YouTubeAutomationAgent.initializeAgents (/workspace/index.js:83:7)\n    at async YouTubeAutomationAgent.initialize (/workspace/index.js:50:7)\n    at async YouTubeAutomationAgent.start (/workspace/index.js:328:25)","timestamp":"2026-06-16T00:22:40.344Z"}
+{"component":"AIVideoGenerator","level":"warn","message":"Replicate API key not found - advanced video generation unavailable","timestamp":"2026-06-16T00:22:40.325Z"}
+{"component":"MainAgent","level":"info","message":"✓ scriptWriter agent initialized","timestamp":"2026-06-16T00:22:40.346Z"}
+{"component":"MainAgent","level":"info","message":"✓ thumbnailDesigner agent initialized","timestamp":"2026-06-16T00:22:40.347Z"}
+{"component":"SEOOptimizer","level":"info","message":"Initializing SEO Optimizer Agent...","timestamp":"2026-06-16T00:22:40.348Z"}
+{"component":"MainAgent","level":"info","message":"✓ seoOptimizer agent initialized","timestamp":"2026-06-16T00:22:40.349Z"}
+{"component":"ProductionManagement","level":"info","message":"Initializing Production Management Agent...","timestamp":"2026-06-16T00:22:40.349Z"}
+{"component":"MainAgent","level":"info","message":"✓ production agent initialized","timestamp":"2026-06-16T00:22:40.350Z"}
+{"component":"PublishingScheduling","level":"info","message":"Initializing Publishing & Scheduling Agent...","timestamp":"2026-06-16T00:22:40.351Z"}
+{"component":"PublishingScheduling","level":"warn","message":"YouTube API not available - running in demo mode","timestamp":"2026-06-16T00:22:40.351Z"}
+{"component":"PublishingScheduling","level":"info","message":"Loaded 0 items in publish queue","timestamp":"2026-06-16T00:22:40.352Z"}
+{"component":"MainAgent","level":"info","message":"✓ publishing agent initialized","timestamp":"2026-06-16T00:22:40.363Z"}
+{"component":"AnalyticsOptimization","level":"info","message":"Initializing Analytics & Optimization Agent...","timestamp":"2026-06-16T00:22:40.364Z"}
+{"component":"MainAgent","level":"info","message":"Initializing database...","timestamp":"2026-06-16T00:22:58.832Z"}
+{"component":"Database","level":"info","message":"Initializing database...","timestamp":"2026-06-16T00:22:58.887Z"}
+{"component":"Database","level":"info","message":"Database initialized successfully","timestamp":"2026-06-16T00:22:58.931Z"}
+{"component":"MainAgent","level":"info","message":"Loading credentials...","timestamp":"2026-06-16T00:22:58.932Z"}
+{"component":"MainAgent","level":"info","message":"Initializing agents...","timestamp":"2026-06-16T00:22:58.947Z"}
+{"component":"ContentStrategy","level":"info","message":"Initializing Content Strategy Agent...","timestamp":"2026-06-16T00:22:58.966Z"}
+{"component":"AIVideoGenerator","level":"warn","message":"OpenAI API key not found - AI features will be simulated","timestamp":"2026-06-16T00:22:58.952Z"}
+{"component":"MainAgent","level":"info","message":"✓ strategy agent initialized","timestamp":"2026-06-16T00:22:58.985Z"}
+{"component":"ScriptWriter","level":"info","message":"Initializing Script Writer Agent...","timestamp":"2026-06-16T00:22:58.986Z"}
+{"component":"ThumbnailDesigner","level":"info","message":"Initializing Thumbnail Designer Agent...","timestamp":"2026-06-16T00:22:58.987Z"}
+{"component":"ContentStrategy","error":"YouTube credentials not configured","level":"error","message":"Error analyzing trends:","stack":"Error: YouTube credentials not configured\n    at CredentialManager.getYouTubeAuth (/workspace/utils/credential-manager.js:139:13)\n    at CredentialManager.getYouTubeClient (/workspace/utils/credential-manager.js:153:23)\n    at ContentStrategyAgent.fetchYouTubeTrends (/workspace/agents/content-strategy-agent.js:50:38)\n    at ContentStrategyAgent.analyzeTrends (/workspace/agents/content-strategy-agent.js:34:33)\n    at ContentStrategyAgent.initialize (/workspace/agents/content-strategy-agent.js:17:16)\n    at async YouTubeAutomationAgent.initializeAgents (/workspace/index.js:83:7)\n    at async YouTubeAutomationAgent.initialize (/workspace/index.js:50:7)\n    at async YouTubeAutomationAgent.start (/workspace/index.js:328:25)","timestamp":"2026-06-16T00:22:58.983Z"}
+{"component":"AIVideoGenerator","level":"warn","message":"Replicate API key not found - advanced video generation unavailable","timestamp":"2026-06-16T00:22:58.952Z"}
+{"component":"MainAgent","level":"info","message":"✓ scriptWriter agent initialized","timestamp":"2026-06-16T00:22:58.987Z"}
+{"component":"MainAgent","level":"info","message":"✓ thumbnailDesigner agent initialized","timestamp":"2026-06-16T00:22:58.988Z"}
+{"component":"SEOOptimizer","level":"info","message":"Initializing SEO Optimizer Agent...","timestamp":"2026-06-16T00:22:58.988Z"}
+{"component":"MainAgent","level":"info","message":"✓ seoOptimizer agent initialized","timestamp":"2026-06-16T00:22:58.989Z"}
+{"component":"ProductionManagement","level":"info","message":"Initializing Production Management Agent...","timestamp":"2026-06-16T00:22:58.990Z"}
+{"component":"MainAgent","level":"info","message":"✓ production agent initialized","timestamp":"2026-06-16T00:22:58.991Z"}
+{"component":"PublishingScheduling","level":"info","message":"Initializing Publishing & Scheduling Agent...","timestamp":"2026-06-16T00:22:58.991Z"}
+{"component":"PublishingScheduling","level":"warn","message":"YouTube API not available - running in demo mode","timestamp":"2026-06-16T00:22:58.992Z"}
+{"component":"PublishingScheduling","level":"info","message":"Loaded 0 items in publish queue","timestamp":"2026-06-16T00:22:59.005Z"}
+{"component":"MainAgent","level":"info","message":"✓ publishing agent initialized","timestamp":"2026-06-16T00:22:59.005Z"}
+{"component":"AnalyticsOptimization","level":"info","message":"Initializing Analytics & Optimization Agent...","timestamp":"2026-06-16T00:22:59.005Z"}
+{"component":"AnalyticsOptimization","level":"warn","message":"YouTube Analytics API not available - running in demo mode","timestamp":"2026-06-16T00:22:59.006Z"}
+{"component":"AnalyticsOptimization","level":"info","message":"Loaded 0 historical records","timestamp":"2026-06-16T00:22:59.006Z"}
+{"component":"MainAgent","level":"info","message":"✓ analytics agent initialized","timestamp":"2026-06-16T00:22:59.007Z"}
+{"component":"MainAgent","level":"info","message":"Setting up automation scheduler...","timestamp":"2026-06-16T00:22:59.009Z"}
+{"component":"MainAgent","level":"info","message":"YouTube Automation Agent initialized successfully!","timestamp":"2026-06-16T00:22:59.030Z"}
+{"component":"DailyAutomation","level":"info","message":"Initializing daily automation scheduler...","timestamp":"2026-06-16T00:22:59.010Z"}
+{"component":"DailyAutomation","level":"info","message":"Started scheduled task: daily-content-generation","timestamp":"2026-06-16T00:22:59.028Z"}
+{"component":"DailyAutomation","level":"info","message":"Started scheduled task: publish-queue-processing","timestamp":"2026-06-16T00:22:59.029Z"}
+{"component":"DailyAutomation","level":"info","message":"Started scheduled task: daily-analytics","timestamp":"2026-06-16T00:22:59.029Z"}
+{"component":"DailyAutomation","level":"info","message":"Started scheduled task: weekly-strategy-review","timestamp":"2026-06-16T00:22:59.029Z"}
+{"component":"DailyAutomation","level":"info","message":"Started scheduled task: daily-optimization","timestamp":"2026-06-16T00:22:59.029Z"}
+{"component":"DailyAutomation","level":"info","message":"Started scheduled task: database-maintenance","timestamp":"2026-06-16T00:22:59.029Z"}
+{"component":"DailyAutomation","level":"info","message":"Daily automation initialized successfully","timestamp":"2026-06-16T00:22:59.029Z"}

@@ -40,8 +40,9 @@ class YouTubeAutomationAgent {
       
       if (!credentialsValid) {
         console.log(chalk.yellow('\n⚠️  Some credentials are missing or invalid.'));
-        console.log(chalk.yellow('Run: npm run credentials:setup'));
-        return false;
+        console.log(chalk.yellow('Configure via UI at: http://localhost:' + (process.env.PORT || 3456) + '/settings'));
+        console.log(chalk.yellow('Or run: npm run credentials:setup'));
+        // Continue anyway to allow UI configuration
       }
       
       // Initialize agents
@@ -142,6 +143,144 @@ class YouTubeAutomationAgent {
         res.json({ success: true, result });
       } catch (error) {
         res.status(500).json({ success: false, error: error.message });
+      }
+    });
+
+    // Get credentials status (without sensitive data)
+    this.app.get('/api/credentials/status', async (req, res) => {
+      try {
+        const hasYoutube = !!this.credentials.credentials.youtube;
+        const hasOpenai = !!this.credentials.credentials.openai;
+        const hasTokens = !!this.credentials.tokens.youtube;
+        
+        res.json({
+          youtube: hasYoutube,
+          openai: hasOpenai,
+          youtubeAuthenticated: hasTokens,
+          configured: hasYoutube && hasOpenai
+        });
+      } catch (error) {
+        res.status(500).json({ error: error.message });
+      }
+    });
+
+    // Save credentials from UI
+    this.app.post('/api/credentials/save', async (req, res) => {
+      try {
+        const { service, config } = req.body;
+        
+        if (!service || !config) {
+          return res.status(400).json({ error: 'Service and config are required' });
+        }
+
+        // Save credentials based on service type
+        if (service === 'youtube') {
+          this.credentials.credentials.youtube = {
+            client_id: config.clientId,
+            client_secret: config.clientSecret,
+            redirect_uris: [config.redirectUri || 'http://localhost:8080/oauth2callback']
+          };
+        } else if (service === 'openai') {
+          this.credentials.credentials.openai = {
+            apiKey: config.apiKey,
+            model: config.model || 'gpt-4-turbo-preview'
+          };
+        } else if (service === 'gemini') {
+          this.credentials.credentials.gemini = {
+            apiKey: config.apiKey
+          };
+        }
+
+        await this.credentials.saveCredentials();
+        
+        // Reload credentials
+        await this.credentials.loadCredentials();
+        
+        res.json({ success: true, message: `${service} credentials saved successfully` });
+      } catch (error) {
+        this.logger.error('Failed to save credentials:', error);
+        res.status(500).json({ error: error.message });
+      }
+    });
+
+    // Save YouTube tokens after OAuth flow
+    this.app.post('/api/credentials/youtube/token', async (req, res) => {
+      try {
+        const { tokens } = req.body;
+        
+        if (!tokens) {
+          return res.status(400).json({ error: 'Tokens are required' });
+        }
+
+        this.credentials.tokens.youtube = tokens;
+        await this.credentials.saveTokens();
+        
+        res.json({ success: true, message: 'YouTube tokens saved successfully' });
+      } catch (error) {
+        this.logger.error('Failed to save YouTube tokens:', error);
+        res.status(500).json({ error: error.message });
+      }
+    });
+
+    // Get YouTube OAuth URL
+    this.app.get('/api/credentials/youtube/auth-url', async (req, res) => {
+      try {
+        const { google } = require('googleapis');
+        
+        if (!this.credentials.credentials.youtube) {
+          return res.status(400).json({ error: 'YouTube credentials not configured' });
+        }
+
+        const oauth2Client = new google.auth.OAuth2(
+          this.credentials.credentials.youtube.client_id,
+          this.credentials.credentials.youtube.client_secret,
+          this.credentials.credentials.youtube.redirect_uris[0]
+        );
+
+        const scopes = [
+          'https://www.googleapis.com/auth/youtube.upload',
+          'https://www.googleapis.com/auth/youtube',
+          'https://www.googleapis.com/auth/youtube.readonly',
+          'https://www.googleapis.com/auth/yt-analytics.readonly'
+        ];
+
+        const authUrl = oauth2Client.generateAuthUrl({
+          access_type: 'offline',
+          scope: scopes,
+        });
+
+        res.json({ authUrl });
+      } catch (error) {
+        this.logger.error('Failed to generate YouTube auth URL:', error);
+        res.status(500).json({ error: error.message });
+      }
+    });
+
+    // Exchange OAuth code for tokens
+    this.app.post('/api/credentials/youtube/exchange', async (req, res) => {
+      try {
+        const { code } = req.body;
+        const { google } = require('googleapis');
+        
+        if (!code) {
+          return res.status(400).json({ error: 'Authorization code is required' });
+        }
+
+        const oauth2Client = new google.auth.OAuth2(
+          this.credentials.credentials.youtube.client_id,
+          this.credentials.credentials.youtube.client_secret,
+          this.credentials.credentials.youtube.redirect_uris[0]
+        );
+
+        const { tokens } = await oauth2Client.getToken(code);
+        
+        this.credentials.tokens.youtube = tokens;
+        await this.credentials.saveTokens();
+
+        res.json({ success: true, message: 'YouTube authentication completed' });
+      } catch (error) {
+        this.logger.error('Failed to exchange OAuth code:', error);
+        res.status(500).json({ error: error.message });
       }
     });
   }
