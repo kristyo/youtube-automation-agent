@@ -25,8 +25,9 @@ class PublishingSchedulingAgent {
       this.youtube = google.youtube({ version: 'v3', auth });
       this.logger.info('YouTube API initialized');
     } catch (error) {
-      this.logger.error('Failed to initialize YouTube API:', error);
-      throw error;
+      this.logger.warn('YouTube API not available - running in demo mode');
+      // Don't throw error, allow app to start without YouTube
+      this.youtube = null;
     }
   }
 
